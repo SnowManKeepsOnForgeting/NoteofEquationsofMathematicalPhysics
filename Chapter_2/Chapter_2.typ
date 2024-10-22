@@ -241,6 +241,10 @@ So we have gotten the general solution:
 $
 u_n (x,t) = a_n cos((n pi)/l x) e^(- (n^2 pi^2 a^2)/l^2 t),a_n = A_n C_n
 $
+
+$
+u(x,t) = a_0/2 + sum_(n=1)^(oo) a_n cos((n pi)/l x) e^(-(n^2 pi ^2 a^2)/l^2 t)
+$
 We have initial condition to get the coefficient $a_n$:
 $
 u(t,0) = a_0/2 + sum_(n=1)^oo a_n cos((n pi)/l x) = phi(x)
@@ -323,6 +327,10 @@ Thus we have the general solution:
 $
 u_n (x,y) = (A_n e^((n pi)/a y) + B_n e^(- (n pi)/a y)) sin((n pi)/a x),A_n=C_n D_n,B_n=C_n E_n
 $
+
+$
+u(x,y) = sum_(n=1)^(oo)(A_n e^((n pi)/a y) + B_n e^(- (n pi)/a y)) sin((n pi)/a x)
+$
 And we have:
 $
 dcases(
@@ -367,7 +375,7 @@ $
 Thus we have two ODEs:
 $
 dcases(
-  r^2 R^'' (r) + r R^' (r) + lambda R(r) = 0\
+  r^2 R^'' (r) + r R^' (r) - lambda R(r) = 0\
   |R(0)| < oo
 )
 $
@@ -405,14 +413,60 @@ To satisfy the periodic condition $beta$ is a integer $n,n=1,2,3dots$.Thus we ha
 $
 Theta_n (theta) = A_n cos(n theta) + B_n sin(n theta),lambda=n^2,n=1,2,3dots
 $
+Let us then solve the $R(r)$ ODE.
+
 And we substitute $lambda = n^2$ into the $R(r)$ ODE to get:
 $
 dcases(
-  r^2 R^'' (r) + r R^' (r) + n^2 R(r) = 0\
+  r^2 R^'' (r) + r R^' (r) - n^2 R(r) = 0\
   |R(0)| < oo
 )
+$<2411>
+This is a Euler equation.Because of $r>0$,we assume $r = e^t$.We have:
 $
-This is a Euler equation.Because of $r>0$,we assume $r = e^t$.
+dv(R,r) = dv(R,t) dv(t,r)=1/r dv(R,t)\
+dv(R,r,2) = dv(1/r dv(R,t),r) = -1/r^2 dv(R,t) + 1/r^2 dv(R,t,2)
+$<->
+We substitute them into @eqt:2411:
+$
+dv(R,t,2)-n^2 dv(R,t) = 0
+$
+We get the solution:
+$
+R_n (t) = C_n e^(n t) + D_n e^(- n t)\
+$
+Thus 
+$
+R_n (r) = dcases(
+  C_0 + D_0 ln r"," n =0\
+  C_n r^n + D_n r^(-n) "," n = 1","2","3dots
+)
 $
 
+And we have natural condition:
+$
+|R(0)| < oo
+$
+Thus $D_n = 0$
+
+So we get the general solution:
+$
+u(r,theta) = a_0/2 + sum_(n=1)^(oo) r^n (a_n cos(n theta) + b_n sin(n theta))
+$
+And we substitute it into boundary condition:
+$
+u(r_0,theta) = a_0/2 + sum_(n=1)^(oo)r_0^n (a_n cos(n theta) + b_n sin(n theta)) = f(theta)
+$
+By comparing fourier coefficient we have:
+$
+dcases(
+
+  a_n = 1/(r_0^n pi) integral_0^(2 pi) f(theta) cos(n theta) dd(theta)\
+  b_n = 1/(r_0^n pi) integral_0^(2 pi) f(theta) sin(n theta) dd(theta)
+)
+$
+
+We substitute these coefficients into the general solution:
+$
+u(r,theta) = 1/pi integral_0^(2 pi) f(t)[1/2 + sum_(n=1)^(oo) (r/r_0)^n cos(n(theta - t))] dd(t)
 $
